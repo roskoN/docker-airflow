@@ -74,11 +74,18 @@ COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
-RUN chmod -R o=rw ${AIRFLOW_HOME}
+RUN mkdir -p ${AIRFLOW_HOME}/logs \
+    && mkdir -p ${AIRFLOW_HOME}/dags \
+    && chown -R airflow: ${AIRFLOW_HOME} \
+    && chgrp -R 0 ${AIRFLOW_HOME} \
+    && chmod -R g=u ${AIRFLOW_HOME} \
+    && chmod g=u /etc/passwd
 
 EXPOSE 8080 5555 8793
 
-USER airflow
 WORKDIR ${AIRFLOW_HOME}
+ENV AIRFLOW_HOME = ${AIRFLOW_HOME}
+USER airflow
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["webserver"] # set default arg for entrypoint
