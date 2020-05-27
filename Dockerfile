@@ -15,7 +15,7 @@ ENV TERM linux
 ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS="redis,postgres,mysql,ldap,aws,password,mongo,spark"
-ARG PYTHON_DEPS="atlassian-python-api,pymongo,requests,walrus"
+ARG PYTHON_DEPS="atlassian-python-api pymongo requests walrus"
 ENV AIRFLOW_GPL_UNIDECODE yes
 
 # Define en_US.
