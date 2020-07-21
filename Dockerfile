@@ -81,8 +81,8 @@ RUN mkdir -p ${AIRFLOW_HOME}/logs \
     && chgrp -R 0 ${AIRFLOW_HOME} \
     && chmod -R g=u ${AIRFLOW_HOME} \
     && chmod g=u /etc/passwd \
-    && mkdir -p ${AIRFLOW_HOME}/dags \
-    && wget https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.37.1061/RedshiftJDBC4-1.2.37.1061.jar -P ${AIRFLOW_HOME}/dags
+    && mkdir -p ${AIRFLOW_HOME}/jdbc \
+    && wget https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.37.1061/RedshiftJDBC4-1.2.37.1061.jar -P ${AIRFLOW_HOME}/jdbc
 
 EXPOSE 8080 5555 8793
 
