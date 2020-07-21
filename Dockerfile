@@ -14,7 +14,7 @@ ENV TERM linux
 # Airflow
 ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
-ARG AIRFLOW_DEPS="redis,postgres,mysql,ldap,aws,password,mongo,spark"
+ARG AIRFLOW_DEPS="redis,postgres,mysql,ldap,aws,password,mongo,spark,jdbc"
 ARG PYTHON_DEPS="atlassian-python-api pymongo requests walrus orjson pottery"
 ENV AIRFLOW_GPL_UNIDECODE yes
 
@@ -47,6 +47,7 @@ RUN set -ex \
         rsync \
         netcat \
         locales \
+        wget \
     && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 \
@@ -79,7 +80,9 @@ RUN mkdir -p ${AIRFLOW_HOME}/logs \
     && chown -R airflow: ${AIRFLOW_HOME} \
     && chgrp -R 0 ${AIRFLOW_HOME} \
     && chmod -R g=u ${AIRFLOW_HOME} \
-    && chmod g=u /etc/passwd
+    && chmod g=u /etc/passwd \
+    && mkdir -p ${AIRFLOW_HOME}/dags \
+    && wget https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.37.1061/RedshiftJDBC4-1.2.37.1061.jar -P ${AIRFLOW_HOME}/dags
 
 EXPOSE 8080 5555 8793
 
