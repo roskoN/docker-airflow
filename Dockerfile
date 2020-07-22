@@ -113,6 +113,7 @@ RUN set -eux; \
 ENV JAVA_HOME=/opt/java/openjdk \
     PATH="/opt/java/openjdk/bin:$PATH"
 
+RUN chown -R airflow: ${AIRFLOW_HOME}
 RUN mkdir -p ${AIRFLOW_HOME}/logs \
     && mkdir -p ${AIRFLOW_HOME}/dags \
     && chown -R airflow: ${AIRFLOW_HOME} \
@@ -121,7 +122,7 @@ RUN mkdir -p ${AIRFLOW_HOME}/logs \
     && chmod g=u /etc/passwd \
     && mkdir -p ${AIRFLOW_HOME}/jdbc \
     && wget https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/1.2.37.1061/RedshiftJDBC4-1.2.37.1061.jar -P ${AIRFLOW_HOME}/jdbc
-RUN chown -R airflow: ${AIRFLOW_HOME}
+
 
 EXPOSE 8080 5555 8793
 
