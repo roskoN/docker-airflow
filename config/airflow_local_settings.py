@@ -63,7 +63,7 @@ PROCESSOR_FILENAME_TEMPLATE = conf.get('core', 'LOG_PROCESSOR_FILENAME_TEMPLATE'
 
 FORMATTER_CLASS_KEY = '()' if six.PY2 else 'class'
 
-DEFAULT_LOGGING_CONFIG = {
+LOGGING_CONFIG = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
