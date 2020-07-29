@@ -32,6 +32,11 @@ from airflow.utils.file import mkdirs
 # settings.py and cli.py. Please see AIRFLOW-1455.
 LOG_LEVEL = conf.get('core', 'LOGGING_LEVEL').upper()
 
+if conf.has_option('core', 'ROOT_LOGGING_LEVEL'):
+    ROOT_LOGGING_LEVEL = conf.get('core', 'ROOT_LOGGING_LEVEL').upper()
+else:
+    ROOT_LOGGING_LEVEL = "error".upper()
+
 
 # Flask appbuilder's info level log is very verbose,
 # so it's set to 'WARN' by default.
@@ -108,7 +113,7 @@ DEFAULT_LOGGING_CONFIG = {
     },
     'root': {
         'handlers': ['console'],
-        'level': LOG_LEVEL,
+        'level': ROOT_LOGGING_LEVEL,
     }
 }  # type: Dict[str, Any]
 

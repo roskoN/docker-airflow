@@ -73,6 +73,8 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY config/airflow_local_settings.py ${AIRFLOW_HOME}/config/airflow_local_settings.py
+COPY config/__init__.py ${AIRFLOW_HOME}/config/__init__.py
 
 RUN set -eux; \
     ARCH="$(dpkg --print-architecture)"; \
