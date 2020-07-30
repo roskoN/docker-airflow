@@ -63,7 +63,7 @@ PROCESSOR_FILENAME_TEMPLATE = conf.get('core', 'LOG_PROCESSOR_FILENAME_TEMPLATE'
 
 FORMATTER_CLASS_KEY = '()' if six.PY2 else 'class'
 
-DEFAULT_LOGGING_CONFIG = {
+LOGGING_CONFIG = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
@@ -141,9 +141,9 @@ DEFAULT_DAG_PARSING_LOGGING_CONFIG = {
 # This is to avoid exceptions when initializing RotatingFileHandler multiple times
 # in multiple processes.
 if os.environ.get('CONFIG_PROCESSOR_MANAGER_LOGGER') == 'True':
-    DEFAULT_LOGGING_CONFIG['handlers'] \
+    LOGGING_CONFIG['handlers'] \
         .update(DEFAULT_DAG_PARSING_LOGGING_CONFIG['handlers'])
-    DEFAULT_LOGGING_CONFIG['loggers'] \
+    LOGGING_CONFIG['loggers'] \
         .update(DEFAULT_DAG_PARSING_LOGGING_CONFIG['loggers'])
 
     # Manually create log directory for processor_manager handler as RotatingFileHandler
@@ -181,7 +181,7 @@ if REMOTE_LOGGING:
             },
         }
 
-        DEFAULT_LOGGING_CONFIG['handlers'].update(S3_REMOTE_HANDLERS)
+        LOGGING_CONFIG['handlers'].update(S3_REMOTE_HANDLERS)
     elif REMOTE_BASE_LOG_FOLDER.startswith('gs://'):
         GCS_REMOTE_HANDLERS = {
             'task': {
@@ -193,7 +193,7 @@ if REMOTE_LOGGING:
             },
         }
 
-        DEFAULT_LOGGING_CONFIG['handlers'].update(GCS_REMOTE_HANDLERS)
+        LOGGING_CONFIG['handlers'].update(GCS_REMOTE_HANDLERS)
     elif REMOTE_BASE_LOG_FOLDER.startswith('wasb'):
         WASB_REMOTE_HANDLERS = {
             'task': {
@@ -207,7 +207,7 @@ if REMOTE_LOGGING:
             },
         }
 
-        DEFAULT_LOGGING_CONFIG['handlers'].update(WASB_REMOTE_HANDLERS)
+        LOGGING_CONFIG['handlers'].update(WASB_REMOTE_HANDLERS)
     elif ELASTICSEARCH_HOST:
         ELASTICSEARCH_LOG_ID_TEMPLATE = conf.get('elasticsearch', 'LOG_ID_TEMPLATE')
         ELASTICSEARCH_END_OF_LOG_MARK = conf.get('elasticsearch', 'END_OF_LOG_MARK')
@@ -230,7 +230,7 @@ if REMOTE_LOGGING:
             },
         }
 
-        DEFAULT_LOGGING_CONFIG['handlers'].update(ELASTIC_REMOTE_HANDLERS)
+        LOGGING_CONFIG['handlers'].update(ELASTIC_REMOTE_HANDLERS)
     else:
         raise AirflowException(
             "Incorrect remote log configuration. Please check the configuration of option 'host' in "
