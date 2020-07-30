@@ -74,6 +74,7 @@ RUN set -ex \
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 COPY config/log_config.py ${AIRFLOW_HOME}/config/log_config.py
+COPY config/log_config.py ${AIRFLOW_HOME}/log_config.py
 COPY config/__init__.py ${AIRFLOW_HOME}/config/__init__.py
 
 RUN set -eux; \
