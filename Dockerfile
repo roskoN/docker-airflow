@@ -15,7 +15,7 @@ ENV TERM linux
 ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS="redis,postgres,mysql,ldap,aws,password,mongo,spark,jdbc"
-ARG PYTHON_DEPS="atlassian-python-api pymongo requests walrus orjson pottery pypika"
+ARG PYTHON_DEPS="atlassian-python-api pymongo requests walrus orjson pottery pypika psycogreen"
 ENV AIRFLOW_GPL_UNIDECODE yes
 
 # Define en_US.
@@ -58,6 +58,7 @@ RUN set -ex \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
+    && pip install 'celery[redis,librabbitmq,brotli,zstd,lzma,eventlet,gevent]~=4.3' \
     && pip install 'redis~=3.2' \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
     && apt-get purge --auto-remove -yqq $buildDeps \
