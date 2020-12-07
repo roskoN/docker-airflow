@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
 
 # Airflow
-ARG AIRFLOW_VERSION=1.10.12
+ARG AIRFLOW_VERSION=1.10.10
 ARG AIRFLOW_HOME=/usr/local/airflow
 ARG AIRFLOW_DEPS="redis,postgres,mysql,ldap,aws,password,mongo,spark,jdbc"
 ARG PYTHON_DEPS="atlassian-python-api pymongo requests walrus orjson pottery pypika XlsxWriter diskcache cachetools"
